@@ -1,4 +1,4 @@
-name: Baysan Continuous Delivery
+name: Continuous Delivery
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-    if: ${{ !contains(github.event.head_commit.message, 'deploy') }}
+
     steps:
       - uses: actions/checkout@v1
 
