@@ -1,0 +1,17 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Copy files to VPS
+        run: |
+          ssh dev2@95.46.107.35 "git clone --depth 1 -b master https://github.com/devdjangoreact/solution_github.git /home/dev2 && cd /home/dev2/solution_github && docker compose -f /home/dev2/projects/solution_github/production.yml build"
