@@ -31,3 +31,19 @@ jobs:
           PORT: ${{ secrets.PORT }}
           KEY: ${{ secrets.SSHKEY }}
           script: ls
+
+      - uses: actions/checkout@v3
+
+      - name: Build Updated Docker Compose Environment
+        run: docker compose -f /home/dev2/solution_github/production.yml build
+
+      - name: Stop Old Docker Compose Environment
+        run: docker compose -f /home/dev2/solution_github/production.yml down
+
+      - name: Run Updated Docker Compose Environment
+        run: docker compose -f /home/dev2/solution_github/production.yml up -d
+
+      - name: Remove Unused Docker Compose Environment
+        run: |
+          docker container prune -f
+          docker image prune -f
